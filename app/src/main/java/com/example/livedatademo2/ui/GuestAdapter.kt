@@ -2,6 +2,7 @@ package com.example.livedatademo2.ui
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.example.livedatademo2.database.model.Guest
 import com.example.livedatademo2.databinding.GuestItemBinding
@@ -37,6 +38,10 @@ class GuestAdapter(
         holder.binding.nameTV.text = guest.name
         holder.binding.foodPrefTV.text = guest.foodPreference
 
+        holder.binding.guestItemCV.setOnClickListener {
+            val navcontroller =  holder.binding.root.findNavController()
+            navcontroller.navigate(HomeFragmentDirections.actionHomeFragmentToDetailFragment(guest.id))
+        }
 
     }
 

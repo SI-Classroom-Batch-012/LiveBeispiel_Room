@@ -21,7 +21,7 @@ class MainViewmodel(app: Application) : AndroidViewModel(app) {
     val allGuests: LiveData<List<Guest>> = repository.allGuests
 
     //Diese Funktion liefert die LiveData aus der Datenbank für einen spezifischen Guest
-    fun getGuest(guestId: Int): LiveData<Guest> = repository.getGuest(guestId)
+    fun getGuest(guestId: Long): LiveData<Guest> = repository.getGuest(guestId)
 
     fun insertGuest(guest:Guest){
         viewModelScope.launch(Dispatchers.IO) {

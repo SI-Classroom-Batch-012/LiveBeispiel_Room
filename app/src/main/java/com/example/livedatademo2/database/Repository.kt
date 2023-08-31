@@ -10,7 +10,7 @@ class Repository(val database: GuestDatabase) {
 
     val allGuests: LiveData<List<Guest>> = database.dao.getAllGuests()
 
-    fun getGuest(guestId: Int): LiveData<Guest> = database.dao.getGuestById(guestId)
+    fun getGuest(guestId: Long): LiveData<Guest> = database.dao.getGuestById(guestId)
 //    Längere Schreibweise:
 //    fun getGuest(guestId: Int): LiveData<Guest> {
 //        return database.dao.getGuestById(guestId)

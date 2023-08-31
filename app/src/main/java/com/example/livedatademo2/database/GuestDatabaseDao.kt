@@ -15,7 +15,7 @@ interface GuestDatabaseDao {
     fun getAllGuests() : LiveData<List<Guest>>
 
     @Query("SELECT * FROM Guest WHERE id=:guestId")
-    fun getGuestById(guestId: Int) : LiveData<Guest>
+    fun getGuestById(guestId: Long) : LiveData<Guest>
 
     //Kein return -> kein suspend
     @Insert(onConflict = OnConflictStrategy.REPLACE)

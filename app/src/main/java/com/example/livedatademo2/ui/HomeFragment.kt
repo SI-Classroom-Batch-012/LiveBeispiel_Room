@@ -19,7 +19,7 @@ class HomeFragment : Fragment() {
     private lateinit var binding: FragmentHomeBinding
     private val viewmodel: MainViewmodel by activityViewModels()
 
-    private val guestId: Int = 1
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -33,9 +33,7 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewmodel.allGuests.observe(viewLifecycleOwner) {
-            Log.d("Datenbanktest", "$it")
-        }
+
 
 //        binding.addBTN.setOnClickListener {
 //            val guest = Guest(name = "Max", foodPreference = "Alles")
@@ -50,9 +48,7 @@ class HomeFragment : Fragment() {
             adapter.newData(it)
         }
 
-        viewmodel.getGuest(guestId).observe(viewLifecycleOwner){
-            Log.d("getGuestById","$it")
-        }
+
     }
 
 
