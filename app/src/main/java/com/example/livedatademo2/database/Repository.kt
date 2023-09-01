@@ -16,6 +16,8 @@ class Repository(val database: GuestDatabase) {
 //        return database.dao.getGuestById(guestId)
 //    }
 
+    fun deleteGuest(guest: Guest) = database.dao.deleteGuestById(guest.id)
+
 
     suspend fun insertGuest(guest: Guest){
         try {

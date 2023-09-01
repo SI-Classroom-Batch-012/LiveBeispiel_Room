@@ -42,13 +42,18 @@ class DetailFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewmodel.getGuest(guestId).observe(viewLifecycleOwner){guest ->
-            //this.guest ist die Variable des Fragments
-            //guest ist die lokale Variable aus der LiveData
-            this.guest = guest
+        if(guestId == -1L) {
+            this.guest = Guest(name = "", foodPreference = "")
 
-            binding.nameET.setText(guest.name)
-            binding.foodET.setText(guest.foodPreference)
+        } else {
+            viewmodel.getGuest(guestId).observe(viewLifecycleOwner) { guest ->
+                //this.guest ist die Variable des Fragments
+                //guest ist die lokale Variable aus der LiveData
+                this.guest = guest
+
+                binding.nameET.setText(guest.name)
+                binding.foodET.setText(guest.foodPreference)
+            }
         }
 
 
@@ -57,13 +62,24 @@ class DetailFragment : Fragment() {
 
     }
 
+    //Fragment wird geschlossen und Bearbeitung ist fertig
+    //-> Bringe die Änderungen in die Datenbank
     override fun onStop() {
+
 
         guest.name = binding.nameET.text.toString()
         guest.foodPreference = binding.foodET.text.toString()
 
-        //guest in der Datenbank updaten
-        viewmodel.insertGuest(guest)
+
+        if(guest.name.isBlank()){
+
+            viewmodel.deleteGuest(guest)
+
+        } else {
+            //guest in der Datenbank updaten
+            viewmodel.insertGuest(guest)
+        }
+
 
         super.onStop()
     }

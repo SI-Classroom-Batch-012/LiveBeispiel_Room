@@ -23,7 +23,14 @@ class MainViewmodel(app: Application) : AndroidViewModel(app) {
     //Diese Funktion liefert die LiveData aus der Datenbank für einen spezifischen Guest
     fun getGuest(guestId: Long): LiveData<Guest> = repository.getGuest(guestId)
 
-    fun insertGuest(guest:Guest){
+    fun deleteGuest(guest: Guest) {
+        viewModelScope.launch(Dispatchers.IO) {
+            repository.deleteGuest(guest)
+
+        }
+    }
+
+    fun insertGuest(guest: Guest) {
         viewModelScope.launch(Dispatchers.IO) {
             repository.insertGuest(guest)
 

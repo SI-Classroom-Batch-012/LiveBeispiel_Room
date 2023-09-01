@@ -2,6 +2,7 @@ package com.example.livedatademo2.database
 
 import androidx.lifecycle.LiveData
 import androidx.room.Dao
+import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
@@ -16,6 +17,11 @@ interface GuestDatabaseDao {
 
     @Query("SELECT * FROM Guest WHERE id=:guestId")
     fun getGuestById(guestId: Long) : LiveData<Guest>
+
+    @Query("DELETE FROM Guest WHERE id=:guestId")
+    fun deleteGuestById(guestId: Long)
+
+
 
     //Kein return -> kein suspend
     @Insert(onConflict = OnConflictStrategy.REPLACE)
