@@ -3,6 +3,8 @@ package com.example.livedatademo2.database.model
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
+// Erster Schritt
+
 @Entity
 data class Guest(
 

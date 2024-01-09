@@ -1,12 +1,13 @@
-package com.example.livedatademo2.database
+package com.example.livedatademo2.database.local
 
 import androidx.lifecycle.LiveData
 import androidx.room.Dao
-import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.example.livedatademo2.database.model.Guest
+
+// Dritter Schritt
 
 @Dao
 interface GuestDatabaseDao {
@@ -21,17 +22,7 @@ interface GuestDatabaseDao {
     @Query("DELETE FROM Guest WHERE id=:guestId")
     fun deleteGuestById(guestId: Long)
 
-
-
     //Kein return -> kein suspend
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertGuest(guest: Guest)
-
-
-
-    //return, aber kein LiveData -> Suspend
-//    @Query("SELECT * FROM Guest")
-//    suspend fun getAllGuestsNoLD() : List<Guest>
-
-
 }

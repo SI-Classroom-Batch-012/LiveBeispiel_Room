@@ -1,18 +1,16 @@
 package com.example.livedatademo2.ui
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import com.example.livedatademo2.MainViewmodel
-import com.example.livedatademo2.R
 import com.example.livedatademo2.database.model.Guest
 import com.example.livedatademo2.databinding.FragmentDetailBinding
-import com.example.livedatademo2.databinding.FragmentHomeBinding
 
+// Achter Schritt
 
 class DetailFragment : Fragment() {
 
@@ -26,7 +24,6 @@ class DetailFragment : Fragment() {
         super.onCreate(savedInstanceState)
 
         arguments?.let {
-//            param1 = it.getString(ARG_PARAM1)
             guestId = it.getLong("guestId")
         }
     }
@@ -34,7 +31,7 @@ class DetailFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
-    ): View? {
+    ): View {
         binding = FragmentDetailBinding.inflate(layoutInflater, container, false)
         return binding.root
     }
@@ -44,43 +41,27 @@ class DetailFragment : Fragment() {
 
         if(guestId == -1L) {
             this.guest = Guest(name = "", foodPreference = "")
-
         } else {
             viewmodel.getGuest(guestId).observe(viewLifecycleOwner) { guest ->
-                //this.guest ist die Variable des Fragments
-                //guest ist die lokale Variable aus der LiveData
+                // this.guest ist die Variable des Fragments
+                // guest ist die lokale Variable aus der LiveData
                 this.guest = guest
-
                 binding.nameET.setText(guest.name)
                 binding.foodET.setText(guest.foodPreference)
             }
         }
-
-
-
-
-
     }
 
-    //Fragment wird geschlossen und Bearbeitung ist fertig
-    //-> Bringe die Änderungen in die Datenbank
+    // Fragment wird geschlossen und Bearbeitung ist fertig
+    // -> Bringe die Änderungen in die Datenbank
     override fun onStop() {
-
-
         guest.name = binding.nameET.text.toString()
         guest.foodPreference = binding.foodET.text.toString()
-
-
         if(guest.name.isBlank()){
-
             viewmodel.deleteGuest(guest)
-
         } else {
-            //guest in der Datenbank updaten
             viewmodel.insertGuest(guest)
         }
-
-
         super.onStop()
     }
 }
